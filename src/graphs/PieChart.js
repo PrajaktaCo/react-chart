@@ -16,7 +16,6 @@ const PieGraph = ({ data, handleClick }) => {
           fill={data?.year === 2022 ? "#8884d8" : "#82ca9d"}
         />
         <Tooltip label={"value"} />
-        <Legend />
       </PieChart>
     </ResponsiveContainer>
   );
