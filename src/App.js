@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import LineGraph from "./graphs/LineChart";
 import BarGraph from "./graphs/BarChart";
 import PieGraph from "./graphs/PieChart";
@@ -6,6 +6,14 @@ import { data } from "./graphData/lineData";
 
 function App() {
   const [graphData, setData] = useState(data[0]);
+  const [apiData, setApiData] = useState([]);
+  useEffect(() => {
+    fetch("https://api.coingecko.com/api/v3/exchange_rates")
+      .then((res) => res.json())
+      .then((json) => {
+        setApiData(Object.values(json?.rates));
+      });
+  }, []);
 
   const handleClick = (e) => {
     if (e?.value === "2022") {
@@ -16,12 +24,18 @@ function App() {
   };
   return (
     <div className="App">
-      <h1 style={{ marginLeft: 50 }}>Line Graph</h1>
-      <LineGraph data={graphData} handleClick={handleClick} />
-      <h1 style={{ marginLeft: 50 }}>Bar Graph</h1>
-      <BarGraph data={graphData} handleClick={handleClick} />
-      <h1 style={{ marginLeft: 50 }}>Pie Chart</h1>
-      <PieGraph data={graphData} handleClick={handleClick} />
+      {!apiData.length ? (
+        <>
+          <h1 style={{ marginLeft: 50 }}>Line Graph</h1>
+          <LineGraph data={apiData} handleClick={handleClick} />
+          <h1 style={{ marginLeft: 50 }}>Bar Graph</h1>
+          <BarGraph data={apiData} handleClick={handleClick} />
+          <h1 style={{ marginLeft: 50 }}>Pie Chart</h1>
+          <PieGraph data={apiData} handleClick={handleClick} />
+        </>
+      ) : (
+        <div>Loading ... </div>
+      )}
     </div>
   );
 }

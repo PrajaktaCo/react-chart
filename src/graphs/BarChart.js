@@ -12,28 +12,12 @@ import {
 const BarGraph = ({ data, handleClick }) => {
   return (
     <ResponsiveContainer width="80%" aspect={3}>
-      <BarChart width={150} height={40} data={data?.data}>
-        <XAxis dataKey="month" />
+      <BarChart width={150} height={40} data={data}>
+        <XAxis dataKey="name" />
         <YAxis />
-        <Legend
-          onClick={(e) => handleClick(e)}
-          payload={[
-            {
-              value: "2022",
-              type: data?.year === 2022 ? "line" : "square",
-              id: "ID01",
-              color: "#8884d8",
-            },
-            {
-              value: "2021",
-              type: data?.year === 2021 ? "line" : "square",
-              id: "ID02",
-              color: "#82ca9d",
-            },
-          ]}
-        />
+        <Legend />
         <Bar
-          dataKey="emps"
+          dataKey="value"
           fill={data?.year === 2022 ? "#8884d8" : "#82ca9d"}
         />
       </BarChart>
