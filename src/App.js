@@ -24,7 +24,7 @@ function App() {
   };
   return (
     <div className="App">
-      {!apiData.length ? (
+      {apiData.length ? (
         <>
           <h1 style={{ marginLeft: 50 }}>Line Graph</h1>
           <LineGraph data={apiData} handleClick={handleClick} />
